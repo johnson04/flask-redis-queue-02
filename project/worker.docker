@@ -1,0 +1,31 @@
+## worker.docker
+# base image
+#FROM python:3.7.0-alpine
+FROM ubuntu:latest
+MAINTAINER Chuan Zhang
+RUN apt-get update -y
+
+# add packages
+ADD ./worker.packages /tmp/worker.packages
+
+# install packages
+RUN xargs -a /tmp/worker.packages apt-get install -y
+
+# set working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# add app contents
+ADD . /usr/src/app
+#COPY ./jobs.py   /usr/src/app
+#COPY ./worker.py /usr/src/app
+
+# add requirements
+ADD ./worker.requirements /tmp/worker.requirements
+
+# install requirements
+RUN pip3 install --upgrade pip
+RUN pip3 install -r /tmp/worker.requirements
+
+# CMD ["python3", "/usr/src/app/worker.py"]
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Flask + RQ Example 01</title>
+        <meta name="description" content="">
+        <meta name="author" content="Chuan Zhang">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!-- style -->
+        <link rel="stylesheet" href="../static/main.css" type="type/css"/>
+    </head>
+    <body>
+        <h1>Asynchronous Database Service</h1>
+        <br><br>
+        <div>
+            <h3>Tasks</h3>
+            <p>Pick a task</p>
+            <div class="btn-group" role="group">
+                <button id="btn_save" type="button" class="btn btn-primary" data-type="SAVE">Save Data</a>
+                <button id="btn_load" type="button" class="btn btn-primary" data-type="LOAD">Load Data</a>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <h3>Task Status</h3>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks">
+                </tbody>
+            </table>
+        </div>
+        <!-- scripts -->
+<!--
+        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+-->
+        <script src="../static/main.js" type="text/javascript"></script>
+        <script>
+            window.onload = function() {
+                bind();
+            }
+        </script>
+    </body>
+</html>

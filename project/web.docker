@@ -1,0 +1,29 @@
+## web.docker
+# base image
+FROM ubuntu:latest 
+MAINTAINER Chuan Zhang
+RUN apt-get update -y
+
+# set working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# add app contents
+ADD . /usr/src/app
+
+# add packages
+ADD ./web.packages /tmp/web.packages
+
+# install packages
+RUN xargs -a /tmp/web.packages apt-get install -y
+
+# add requirements
+ADD ./web.requirements /tmp/web.requirements
+
+# install requirements
+RUN pip3 install --upgrade pip
+RUN pip3 install -r /tmp/web.requirements
+
+#EXPOSE 5000
+#ENV FLASK_APP=/usr/src/app/web_svr.py
+#CMD ["bash", "/usr/src/app/web.start"]

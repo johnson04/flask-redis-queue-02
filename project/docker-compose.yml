@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+    web:
+        build:
+            context: .
+            dockerfile: web.docker
+        image: async_tsk_web
+        container_name: async_tsk_web
+        volumes:
+            - .:/usr/src/app
+        ports:
+            - '5000:5000'
+        command: flask run
+        environment:
+            - LC_ALL=C.UTF-8
+            - LANG=C.UTF-8
+            - FLASK_DEBUG=1
+            - FLASK_RUN_HOST=0.0.0.0
+            - FLASK_APP=/usr/src/app/web_svr.py
+        depends_on:
+            - redis
+
+    worker:
+        build:
+            context: .
+            dockerfile: worker.docker
+        image: async_tsk_worker
+        container_name: async_tsk_worker01
+        volumes:
+            - .:/usr/src/app
+        command: python3 /usr/src/app/worker.py
+        depends_on:
+            - redis
+
+    redis:
+        image: redis:4.0.11-alpine
+#        container_name: async_tsk_redis
+#        ports:
+#            - '6379:6379'
+ 
